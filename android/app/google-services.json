@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "396960097890",
+    "project_id": "asistente-salud-mental",
+    "storage_bucket": "asistente-salud-mental.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:396960097890:android:e15ab8a055a6906b1e133b",
+        "android_client_info": {
+          "package_name": "com.mycompany.g2desarrollodispositivosmovilessem10"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-sODuBztz-LZLM6e1K3q_DrdNLZDV3vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
