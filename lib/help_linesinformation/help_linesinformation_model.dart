@@ -1,9 +1,10 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'help_linesinformation_widget.dart' show HelpLinesinformationWidget;
 import 'package:flutter/material.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class HelpLinesinformationModel
+    extends FlutterFlowModel<HelpLinesinformationWidget> {
   @override
   void initState(BuildContext context) {}
 
