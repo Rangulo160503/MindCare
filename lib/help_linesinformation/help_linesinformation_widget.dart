@@ -4,11 +4,17 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'help_linesinformation_model.dart';
 export 'help_linesinformation_model.dart';
 
 class HelpLinesinformationWidget extends StatefulWidget {
-  const HelpLinesinformationWidget({super.key});
+  const HelpLinesinformationWidget({
+    super.key,
+    required this.countrySelected,
+  });
+
+  final String? countrySelected;
 
   static String routeName = 'HelpLinesinformation';
   static String routePath = '/helpLinesinformation';
@@ -73,140 +79,99 @@ class _HelpLinesinformationWidgetState
                 alignment: AlignmentDirectional(0.0, -1.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
                       child: Align(
                         alignment: AlignmentDirectional(0.0, 0.0),
-                        child: StreamBuilder<List<HelpLinesRecord>>(
-                          stream: queryHelpLinesRecord(
-                            limit: 1,
+                        child: PagedListView<DocumentSnapshot<Object?>?,
+                            HelpLinesRecord>.separated(
+                          pagingController:
+                              _model.setHelpLinesInformationListViewController(
+                            HelpLinesRecord.collection.where(
+                              'country',
+                              isEqualTo: widget.countrySelected,
+                            ),
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                      FlutterFlowTheme.of(context).primary,
-                                    ),
+                          padding: EdgeInsets.symmetric(vertical: 5.0),
+                          shrinkWrap: true,
+                          reverse: false,
+                          scrollDirection: Axis.vertical,
+                          separatorBuilder: (_, __) => SizedBox(height: 5.0),
+                          builderDelegate:
+                              PagedChildBuilderDelegate<HelpLinesRecord>(
+                            // Customize what your widget looks like when it's loading the first page.
+                            firstPageProgressIndicatorBuilder: (_) => Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
                                   ),
                                 ),
-                              );
-                            }
-                            List<HelpLinesRecord>
-                                helpLinesInformationListViewHelpLinesRecordList =
-                                snapshot.data!;
-
-                            return ListView.separated(
-                              padding: EdgeInsets.symmetric(vertical: 5.0),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount:
-                                  helpLinesInformationListViewHelpLinesRecordList
-                                      .length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 5.0),
-                              itemBuilder:
-                                  (context, helpLinesInformationListViewIndex) {
-                                final helpLinesInformationListViewHelpLinesRecord =
-                                    helpLinesInformationListViewHelpLinesRecordList[
-                                        helpLinesInformationListViewIndex];
-                                return Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        helpLinesInformationListViewHelpLinesRecord
-                                            .country,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      Text(
-                                        helpLinesInformationListViewHelpLinesRecord
-                                            .serviceName,
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Inter',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                      Expanded(
-                                        child: StreamBuilder<
-                                            List<HelpLinesRecord>>(
-                                          stream: queryHelpLinesRecord(
-                                            limit: 3,
-                                          ),
-                                          builder: (context, snapshot) {
-                                            // Customize what your widget looks like when it's loading.
-                                            if (!snapshot.hasData) {
-                                              return Center(
-                                                child: SizedBox(
-                                                  width: 50.0,
-                                                  height: 50.0,
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    valueColor:
-                                                        AlwaysStoppedAnimation<
-                                                            Color>(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                    ),
-                                                  ),
-                                                ),
-                                              );
-                                            }
-                                            List<HelpLinesRecord>
-                                                listViewHelpLinesRecordList =
-                                                snapshot.data!;
-
-                                            return ListView.builder(
-                                              padding: EdgeInsets.zero,
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.vertical,
-                                              itemCount:
-                                                  listViewHelpLinesRecordList
-                                                      .length,
-                                              itemBuilder:
-                                                  (context, listViewIndex) {
-                                                final listViewHelpLinesRecord =
-                                                    listViewHelpLinesRecordList[
-                                                        listViewIndex];
-                                                return Text(
-                                                  listViewHelpLinesRecord
-                                                      .hasMessageOption()
-                                                      .toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    ]
-                                        .divide(SizedBox(width: 7.0))
-                                        .around(SizedBox(width: 7.0)),
+                              ),
+                            ),
+                            // Customize what your widget looks like when it's loading another page.
+                            newPageProgressIndicatorBuilder: (_) => Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation<Color>(
+                                    FlutterFlowTheme.of(context).primary,
                                   ),
-                                );
-                              },
-                            );
-                          },
+                                ),
+                              ),
+                            ),
+
+                            itemBuilder: (context, _,
+                                helpLinesInformationListViewIndex) {
+                              final helpLinesInformationListViewHelpLinesRecord =
+                                  _model.helpLinesInformationListViewPagingController!
+                                          .itemList![
+                                      helpLinesInformationListViewIndex];
+                              return Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      helpLinesInformationListViewHelpLinesRecord
+                                          .country,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                    Text(
+                                      valueOrDefault<String>(
+                                        helpLinesInformationListViewHelpLinesRecord
+                                            .messageOption
+                                            .where((e) =>
+                                                widget.countrySelected !=
+                                                    null &&
+                                                widget.countrySelected != '')
+                                            .toList()
+                                            .firstOrNull,
+                                        'No hay información disponible',
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Inter',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ]
+                                      .divide(SizedBox(width: 7.0))
+                                      .around(SizedBox(width: 7.0)),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),

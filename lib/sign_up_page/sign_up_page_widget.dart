@@ -176,7 +176,7 @@ class _SignUpPageWidgetState extends State<SignUpPageWidget>
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      'brand.ai',
+                                      'MindCare',
                                       style: FlutterFlowTheme.of(context)
                                           .headlineMedium
                                           .override(

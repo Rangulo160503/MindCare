@@ -1,8 +1,9 @@
-import '/backend/backend.dart';
+import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'historial_emocional_page_model.dart';
 export 'historial_emocional_page_model.dart';
@@ -39,6 +40,12 @@ class _HistorialEmocionalPageWidgetState
 
   @override
   Widget build(BuildContext context) {
+    final chartPieChartColorsList = [
+      Color(0xFF8F47E9),
+      Color(0xFF7029CC),
+      Color(0xFF2636A5),
+      Color(0xFF4A57C2)
+    ];
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -146,6 +153,29 @@ class _HistorialEmocionalPageWidgetState
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
+                              child: Container(
+                                width: 370.0,
+                                height: 230.0,
+                                child: FlutterFlowPieChart(
+                                  data: FFPieChartData(
+                                    values: List.generate(
+                                        random_data.randomInteger(10, 20),
+                                        (index) =>
+                                            random_data.randomInteger(0, 10)),
+                                    colors: chartPieChartColorsList,
+                                    radius: [100.0],
+                                  ),
+                                  donutHoleRadius: 0.0,
+                                  donutHoleColor: Colors.transparent,
+                                  sectionLabelStyle:
+                                      FlutterFlowTheme.of(context)
+                                          .headlineSmall
+                                          .override(
+                                            fontFamily: 'Inter Tight',
+                                            letterSpacing: 0.0,
+                                          ),
+                                ),
+                              ),
                             ),
                           ].divide(SizedBox(height: 16.0)),
                         ),
@@ -249,49 +279,12 @@ class _HistorialEmocionalPageWidgetState
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     children: [
-                      StreamBuilder<List<MoodEntriesRecord>>(
-                        stream: queryMoodEntriesRecord(
-                          singleRecord: true,
-                        ),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50.0,
-                                height: 50.0,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<MoodEntriesRecord> textMoodEntriesRecordList =
-                              snapshot.data!;
-                          // Return an empty Container when the item does not exist.
-                          if (snapshot.data!.isEmpty) {
-                            return Container();
-                          }
-                          final textMoodEntriesRecord =
-                              textMoodEntriesRecordList.isNotEmpty
-                                  ? textMoodEntriesRecordList.first
-                                  : null;
-
-                          return Text(
-                            valueOrDefault<String>(
-                              textMoodEntriesRecord?.date?.toString(),
-                              'date',
+                      Text(
+                        'Fecha:',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
                             ),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Inter',
-                                  letterSpacing: 0.0,
-                                ),
-                          );
-                        },
                       ),
                     ],
                   ),
@@ -303,52 +296,23 @@ class _HistorialEmocionalPageWidgetState
                       size: 24.0,
                     ),
                   ),
-                  FutureBuilder<int>(
-                    future: queryMoodEntriesRecordCount(
-                      queryBuilder: (moodEntriesRecord) => moodEntriesRecord
-                          .where(
-                            'user_id',
-                            isEqualTo: '',
-                          )
-                          .orderBy('date', descending: true),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                FlutterFlowTheme.of(context).primary,
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                      int listViewCount = snapshot.data!;
-
-                      return ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(-1.0, 0.0),
-                            child: Text(
-                              'Nota de día:',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                  ListView(
+                    padding: EdgeInsets.zero,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-1.0, 0.0),
+                        child: Text(
+                          'Nota de día:',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                        ),
+                      ),
+                    ],
                   ),
                   Material(
                     color: Colors.transparent,

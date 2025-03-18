@@ -97,7 +97,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: HelpLinesinformationWidget.routeName,
           path: HelpLinesinformationWidget.routePath,
-          builder: (context, params) => HelpLinesinformationWidget(),
+          builder: (context, params) => HelpLinesinformationWidget(
+            countrySelected: params.getParam(
+              'countrySelected',
+              ParamType.String,
+            ),
+          ),
         ),
         FFRoute(
           name: HistorialEmocionalPageWidget.routeName,
@@ -113,6 +118,56 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: LoginWidget.routeName,
           path: LoginWidget.routePath,
           builder: (context, params) => LoginWidget(),
+        ),
+        FFRoute(
+          name: SettingsPageWidget.routeName,
+          path: SettingsPageWidget.routePath,
+          builder: (context, params) => SettingsPageWidget(),
+        ),
+        FFRoute(
+          name: AddEmergencyContactsWidget.routeName,
+          path: AddEmergencyContactsWidget.routePath,
+          builder: (context, params) => AddEmergencyContactsWidget(),
+        ),
+        FFRoute(
+          name: MyEmergencyContactsWidget.routeName,
+          path: MyEmergencyContactsWidget.routePath,
+          builder: (context, params) => MyEmergencyContactsWidget(),
+        ),
+        FFRoute(
+          name: ConfiguracinWidget.routeName,
+          path: ConfiguracinWidget.routePath,
+          builder: (context, params) => ConfiguracinWidget(),
+        ),
+        FFRoute(
+          name: MensajesdeapoyoWidget.routeName,
+          path: MensajesdeapoyoWidget.routePath,
+          builder: (context, params) => MensajesdeapoyoWidget(),
+        ),
+        FFRoute(
+          name: TendenciasWidget.routeName,
+          path: TendenciasWidget.routePath,
+          builder: (context, params) => TendenciasWidget(),
+        ),
+        FFRoute(
+          name: ListaEmocinalWidget.routeName,
+          path: ListaEmocinalWidget.routePath,
+          builder: (context, params) => ListaEmocinalWidget(),
+        ),
+        FFRoute(
+          name: MoodTrackingPageWidget.routeName,
+          path: MoodTrackingPageWidget.routePath,
+          builder: (context, params) => MoodTrackingPageWidget(),
+        ),
+        FFRoute(
+          name: RecommendationsPageWidget.routeName,
+          path: RecommendationsPageWidget.routePath,
+          builder: (context, params) => RecommendationsPageWidget(),
+        ),
+        FFRoute(
+          name: AnonymousForumPageWidget.routeName,
+          path: AnonymousForumPageWidget.routePath,
+          builder: (context, params) => AnonymousForumPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

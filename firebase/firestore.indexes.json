@@ -1,7 +1,7 @@
 {
   "indexes": [
     {
-      "collectionGroup": "mood_entries",
+      "collectionGroup": "mood_tracking",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -9,7 +9,7 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "date",
+          "fieldPath": "timestamp",
           "order": "DESCENDING"
         }
       ]

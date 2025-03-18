@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/index.dart';
 import 'package:flutter/material.dart';
 import 'login_model.dart';
 export 'login_model.dart';
@@ -304,7 +305,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                         return;
                                       }
 
-                                      context.goNamedAuth(LoginWidget.routeName,
+                                      context.pushNamedAuth(
+                                          HomePageWidget.routeName,
                                           context.mounted);
                                     },
                                     text: 'Sign In',
